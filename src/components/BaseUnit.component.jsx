@@ -23,11 +23,10 @@ const UnitStatus = props => {
 };
 
 const BaseUnit = props => {
-  const SCALE = props.scale ? 1 : props.scale;
-  const UNITTYPE = props.type ? "" : props.type;
-  const WIDTH = 100 * SCALE;
-  const HEIGHT = 50 * SCALE;
+  const WIDTH = 100;
+  const HEIGHT = 50;
 
+  const UNITTYPE = props.type ? "" : props.type;
   const TEXT_X = (WIDTH / 6) * 5;
   const TEXT_Y = HEIGHT / 2;
 
