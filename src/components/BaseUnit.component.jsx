@@ -3,9 +3,8 @@ import React from "react";
 const UnitStatus = props => {
   var healthPercentage = props.currentHealth / props.maxHealth;
 
-  const SCALE = props.scale === undefined ? 1 : props.scale;
-  const WIDTH = 100 * SCALE;
-  const HEIGHT = 10 * SCALE;
+  const WIDTH = 100;
+  const HEIGHT = 10;
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg">
