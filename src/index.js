@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import BaseUnit from "./components/BaseUnit.component";
+import BattleMap from "./components/BattleMap.component";
 
 const App = () => {
+  const units = [1, 2, 3];
   return (
     <div>
-      <BaseUnit />
+      <BattleMap displayedUnits={units} />
       Generals-Frontend WIP
     </div>
   );
