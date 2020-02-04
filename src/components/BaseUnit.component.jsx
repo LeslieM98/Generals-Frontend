@@ -23,8 +23,8 @@ const UnitStatus = props => {
 };
 
 const BaseUnit = props => {
-  const SCALE = props.scale === undefined ? 1 : props.scale;
-  const UNITTYPE = props.type === undefined ? "" : props.type;
+  const SCALE = props.scale ? 1 : props.scale;
+  const UNITTYPE = props.type ? "" : props.type;
   const WIDTH = 100 * SCALE;
   const HEIGHT = 50 * SCALE;
 
