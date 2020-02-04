@@ -5,8 +5,8 @@ import BaseUnit from "./components/BaseUnit.component";
 const App = () => {
   return (
     <div>
-      Generals-Frontend WIP
       <BaseUnit />
+      Generals-Frontend WIP
     </div>
   );
 };
