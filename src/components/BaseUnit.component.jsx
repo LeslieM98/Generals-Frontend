@@ -1,50 +1,44 @@
 import React from "react";
+import Axios from "axios";
 
-const UnitStatus = props => {
-  var healthPercentage = props.currentHealth / props.maxHealth;
+const UNIT_HEIGHT = 50;
+const UNIT_WIDTH = 100;
+const BAR_HEIGHT = 10;
 
-  const WIDTH = 100;
-  const HEIGHT = 10;
+const UnitStatus = ({ current, maximum }) => {
+  const healthPercentage = current / maximum;
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg">
       <g name="UnitStatus">
-        <rect width={WIDTH} height={HEIGHT} y={props.y}></rect>
+        <rect width={UNIT_WIDTH} height={BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
         <rect
-          width={WIDTH * healthPercentage}
-          height={HEIGHT}
+          width={UNIT_WIDTH * healthPercentage}
+          height={BAR_HEIGHT}
+          y={UNIT_HEIGHT}
           fill="green"
-          y={props.y}
         />
       </g>
     </svg>
   );
 };
 
-const BaseUnit = props => {
-  const WIDTH = 100;
-  const HEIGHT = 50;
-
-  const UNITTYPE = props.type ? "" : props.type;
-  const TEXT_X = (WIDTH / 6) * 5;
-  const TEXT_Y = HEIGHT / 2;
+const BaseUnit = ({ id, color }) => {
+  const fetchStatus = () => {
+    var result;
+    Axios.get(`http://localhost:8080/troop/get?id=${id}`)
+      .then(x => (result = x))
+      .catch(x => console.log(`Error while fetching state for id=${id}`, x));
+    return result;
+  };
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg">
       <g name="BaseUnit" stroke="black" fill="white" strokeWidth="1pt">
-        <rect width={WIDTH} height={HEIGHT} />
-        <line x1="0" y1="0" x2={WIDTH} y2={HEIGHT} />
-        <line x1="0" y1={HEIGHT} x2={WIDTH} y2="0" />
-        <text
-          x={TEXT_X}
-          y={TEXT_Y}
-          class="small"
-          textAnchor="middle"
-          dominantBaseline="central"
-        >
-          {UNITTYPE}
-        </text>
-        <UnitStatus y={HEIGHT} currentHealth="4" maxHealth="9" />
+        <rect width={UNIT_WIDTH} height={UNIT_HEIGHT} />
+        <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
+        <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
+        <UnitStatus current="9" maximum="10" />
       </g>
     </svg>
   );
