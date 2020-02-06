@@ -1,19 +1,26 @@
 import React from "react";
-import Axios from "axios";
+import { useState, useEffect } from "react";
 
 const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
-const UnitStatus = ({ current, maximum }) => {
-  const healthPercentage = current / maximum;
+const UnitStatus = props => {
+  console.log(props.healthData);
+  if (props.healthData !== null) {
+    console.log(props.healthData.current);
+    console.log(props.healthData.maximum);
+  }
+  const hp =
+    props.healthData && props.healthData.current / props.healthData.maximum;
+  console.log(hp);
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg">
       <g name="UnitStatus">
         <rect width={UNIT_WIDTH} height={BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
         <rect
-          width={UNIT_WIDTH * healthPercentage}
+          width={UNIT_WIDTH * hp}
           height={BAR_HEIGHT}
           y={UNIT_HEIGHT}
           fill="green"
@@ -23,13 +30,15 @@ const UnitStatus = ({ current, maximum }) => {
   );
 };
 
-const BaseUnit = ({ id, color }) => {
-  const fetchStatus = () => {
-    var result;
-    Axios.get(`http://localhost:8080/troop/get?id=${id}`)
-      .then(x => (result = x))
-      .catch(x => console.log(`Error while fetching state for id=${id}`, x));
-    return result;
+const BaseUnit = ({ id }) => {
+  const [health, setHealth] = useState(null);
+
+  useEffect(() => pullHealthData(), []);
+
+  const pullHealthData = () => {
+    fetch(`http://localhost:8080/troop/get?id=${id}`)
+      .then(x => x.json())
+      .then(x => setHealth(x.health));
   };
 
   return (
@@ -38,7 +47,7 @@ const BaseUnit = ({ id, color }) => {
         <rect width={UNIT_WIDTH} height={UNIT_HEIGHT} />
         <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
         <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
-        <UnitStatus current="9" maximum="10" />
+        <UnitStatus healthData={health} />
       </g>
     </svg>
   );
