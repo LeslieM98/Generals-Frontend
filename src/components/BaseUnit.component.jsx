@@ -55,9 +55,9 @@ const BaseUnit = ({ id }) => {
   const [health, setHealth] = useState(null);
   const [combatRange, setCombatRange] = useState(null);
 
-  useEffect(() => pullHealthData(), []);
+  useEffect(() => update(), []);
 
-  const pullHealthData = () => {
+  const update = () => {
     fetch(`http://localhost:8080/troop/get?id=${id}`)
       .then(x => x.json())
       .then(x => {
