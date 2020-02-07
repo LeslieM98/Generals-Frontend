@@ -5,6 +5,35 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
+const CombatRange = ({ combatRangeData, cx, cy }) => {
+  console.log("battleRangeData:", combatRangeData);
+  const CIRCLE_SCALE = 10;
+
+  const CLOSE = combatRangeData && combatRangeData.close * CIRCLE_SCALE;
+  const RANGED = combatRangeData && combatRangeData.ranged * CIRCLE_SCALE;
+
+  return (
+    <g name="CombatRange">
+      <circle
+        name="close"
+        cx={cx}
+        cy={cy}
+        r={CLOSE}
+        fillOpacity="10%"
+        fill="red"
+      />
+      <circle
+        name="ranged"
+        cx={cx}
+        cy={cy}
+        r={RANGED}
+        fillOpacity="10%"
+        fill="red"
+      />
+    </g>
+  );
+};
+
 const UnitStatus = ({ healthData }) => {
   console.log("healthData:", healthData);
   const HP = healthData && healthData.current / healthData.maximum;
@@ -40,6 +69,7 @@ const BaseUnit = ({ id }) => {
         <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
         <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
         <UnitStatus healthData={data && data.health} />
+        <CombatRange combatRangeData={data && data.combatRange} />
       </g>
     </svg>
   );
