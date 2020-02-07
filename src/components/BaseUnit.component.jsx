@@ -134,7 +134,7 @@ const HealthBar = ({ healthData }) => {
   );
 };
 
-const RangeController = ({ name, color, position }) => {
+const RangeController = ({ name, color, position, ...props }) => {
   const RANGE_CONTROLLER_WIDTH = UNIT_WIDTH / 3;
   const RANGE_CONTROLLER_HEIGHT = BAR_HEIGHT;
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
@@ -143,7 +143,7 @@ const RangeController = ({ name, color, position }) => {
       name={name}
       x={RANGE_CONTROLLER_WIDTH * position}
       y={RANGE_CONTROLLER_Y_OFFSET}
-      width={UNIT_WIDTH / 3}
+      width={RANGE_CONTROLLER_WIDTH}
       height={RANGE_CONTROLLER_HEIGHT}
       fill={color}
     />
