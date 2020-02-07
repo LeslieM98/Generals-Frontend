@@ -5,6 +5,47 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
+const ViewDistance = ({ viewDistanceData }) => {
+  console.log("movementRangeData:", viewDistanceData);
+  const CIRCLE_SCALE = 10;
+
+  const COLOR = "yellow";
+
+  const DISADVANTAGED =
+    viewDistanceData && viewDistanceData.disadvantaged * CIRCLE_SCALE;
+  const NORMAL = viewDistanceData && viewDistanceData.normal * CIRCLE_SCALE;
+  const ADVANTAGED =
+    viewDistanceData && viewDistanceData.advantaged * CIRCLE_SCALE;
+  return (
+    <g name="MovementRange">
+      <circle
+        name="disadvantaged"
+        cx={UNIT_WIDTH / 2}
+        cy={UNIT_HEIGHT / 2}
+        r={DISADVANTAGED}
+        fillOpacity="10%"
+        fill={COLOR}
+      />
+      <circle
+        name="normal"
+        cx={UNIT_WIDTH / 2}
+        cy={UNIT_HEIGHT / 2}
+        r={NORMAL}
+        fillOpacity="10%"
+        fill={COLOR}
+      />
+      <circle
+        name="advantaged"
+        cx={UNIT_WIDTH / 2}
+        cy={UNIT_HEIGHT / 2}
+        r={ADVANTAGED}
+        fillOpacity="10%"
+        fill={COLOR}
+      />
+    </g>
+  );
+};
+
 const MovementRange = ({ movementRangeData }) => {
   console.log("movementRangeData:", movementRangeData);
   const CIRCLE_SCALE = 10;
@@ -18,7 +59,7 @@ const MovementRange = ({ movementRangeData }) => {
   return (
     <g name="MovementRange">
       <circle
-        name="difficultTerrain"
+        name="difficusltTerrain"
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={DIFFICULT_TERRAIN}
@@ -96,6 +137,7 @@ const BaseUnit = ({ id }) => {
   const [combatRange, setCombatRange] = useState(null);
   const [position, setPosition] = useState(null);
   const [movementRange, setMovementRange] = useState(null);
+  const [viewDistance, setViewDistance] = useState(null);
 
   useEffect(() => update(), []);
 
@@ -107,6 +149,7 @@ const BaseUnit = ({ id }) => {
         setCombatRange(x.combatRange);
         setPosition(x.position);
         setMovementRange(x.movementSpeed);
+        setViewDistance(x.viewDistance);
       });
   };
 
@@ -129,6 +172,7 @@ const BaseUnit = ({ id }) => {
         <UnitStatus healthData={health} />
         <CombatRange combatRangeData={combatRange} />
         <MovementRange movementRangeData={movementRange} />
+        <ViewDistance viewDistanceData={viewDistance} />
       </g>
     </svg>
   );
