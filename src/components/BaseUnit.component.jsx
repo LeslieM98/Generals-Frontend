@@ -5,6 +5,46 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
+const MovementRange = ({ movementRangeData }) => {
+  console.log("movementRangeData:", movementRangeData);
+  const CIRCLE_SCALE = 10;
+
+  const COLOR = "green";
+
+  const DIFFICULT_TERRAIN =
+    movementRangeData && movementRangeData.difficultTerrain * CIRCLE_SCALE;
+  const NORMAL = movementRangeData && movementRangeData.normal * CIRCLE_SCALE;
+  const STREET = movementRangeData && movementRangeData.street * CIRCLE_SCALE;
+  return (
+    <g name="MovementRange">
+      <circle
+        name="difficultTerrain"
+        cx={UNIT_WIDTH / 2}
+        cy={UNIT_HEIGHT / 2}
+        r={DIFFICULT_TERRAIN}
+        fillOpacity="10%"
+        fill={COLOR}
+      />
+      <circle
+        name="normal"
+        cx={UNIT_WIDTH / 2}
+        cy={UNIT_HEIGHT / 2}
+        r={NORMAL}
+        fillOpacity="10%"
+        fill={COLOR}
+      />
+      <circle
+        name="street"
+        cx={UNIT_WIDTH / 2}
+        cy={UNIT_HEIGHT / 2}
+        r={STREET}
+        fillOpacity="10%"
+        fill={COLOR}
+      />
+    </g>
+  );
+};
+
 const CombatRange = ({ combatRangeData }) => {
   console.log("battleRangeData:", combatRangeData);
   const CIRCLE_SCALE = 10;
@@ -55,6 +95,7 @@ const BaseUnit = ({ id }) => {
   const [health, setHealth] = useState(null);
   const [combatRange, setCombatRange] = useState(null);
   const [position, setPosition] = useState(null);
+  const [movementRange, setMovementRange] = useState(null);
 
   useEffect(() => update(), []);
 
@@ -65,6 +106,7 @@ const BaseUnit = ({ id }) => {
         setHealth(x.health);
         setCombatRange(x.combatRange);
         setPosition(x.position);
+        setMovementRange(x.movementSpeed);
       });
   };
 
@@ -86,6 +128,7 @@ const BaseUnit = ({ id }) => {
         <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
         <UnitStatus healthData={health} />
         <CombatRange combatRangeData={combatRange} />
+        <MovementRange movementRangeData={movementRange} />
       </g>
     </svg>
   );
