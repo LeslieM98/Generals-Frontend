@@ -5,7 +5,7 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
-const CombatRange = ({ combatRangeData, position }) => {
+const CombatRange = ({ combatRangeData }) => {
   console.log("battleRangeData:", combatRangeData);
   const CIRCLE_SCALE = 10;
 
