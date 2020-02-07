@@ -54,6 +54,8 @@ const UnitStatus = ({ healthData }) => {
 const BaseUnit = ({ id }) => {
   const [health, setHealth] = useState(null);
   const [combatRange, setCombatRange] = useState(null);
+  const [position, setPosition] = useState(null);
+
   useEffect(() => update(), []);
 
   const update = () => {
@@ -62,13 +64,24 @@ const BaseUnit = ({ id }) => {
       .then(x => {
         setHealth(x.health);
         setCombatRange(x.combatRange);
+        setPosition(x.position);
       });
   };
 
+  const TRANSLATE =
+    position &&
+    `translate(${position.x - UNIT_WIDTH / 2} ${position.y - UNIT_HEIGHT / 2})`;
+
   return (
     <svg xmlns="http://www.w3.org/2000/svg">
-      <g name="BaseUnit" stroke="black" fill="white" strokeWidth="1pt">
-        <rect width={UNIT_WIDTH} height={UNIT_HEIGHT} />
+      <g
+        name="BaseUnit"
+        stroke="black"
+        fill="white"
+        strokeWidth="1pt"
+        transform={TRANSLATE}
+      >
+        <rect x={0} y={0} width={UNIT_WIDTH} height={UNIT_HEIGHT} />
         <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
         <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
         <UnitStatus healthData={health} />
