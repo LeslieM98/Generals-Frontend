@@ -134,7 +134,7 @@ const HealthBar = ({ healthData }) => {
   );
 };
 
-const RangeController = ({ name, color, position, ...props }) => {
+const RangeController = ({ name, color, position }) => {
   const RANGE_CONTROLLER_WIDTH = UNIT_WIDTH / 3;
   const RANGE_CONTROLLER_HEIGHT = BAR_HEIGHT;
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
@@ -150,11 +150,20 @@ const RangeController = ({ name, color, position, ...props }) => {
   );
 };
 
-const UnitStatus = ({ healthData }) => {
+const UnitStatus = ({
+  healthData,
+  combatRange,
+  movementRange,
+  viewDistance
+}) => {
+  const [viewDistanceEnabled, setViewDistanceEnabled] = useState(false);
+
+  const toggleViewDistance = () => setViewDistanceEnabled(!viewDistance);
+
   return (
     <g name="UnitStatus">
       <HealthBar healthData={healthData} />
-      <g name="RangeController">
+      <g name="RangeControllers">
         <RangeController
           name="AttackRangeController"
           color="red"
@@ -170,6 +179,15 @@ const UnitStatus = ({ healthData }) => {
           name="ViewRangeController"
           color="green"
           position="2"
+          onClick={toggleViewDistance}
+        />
+      </g>
+      <g name="Ranges">
+        <CombatRange combatRangeData={combatRange} />
+        <MovementRange movementRangeData={movementRange} />
+        <ViewDistance
+          viewDistanceData={viewDistance}
+          enabled={viewDistanceEnabled}
         />
       </g>
     </g>
@@ -213,10 +231,12 @@ const BaseUnit = ({ id }) => {
         <rect x={0} y={0} width={UNIT_WIDTH} height={UNIT_HEIGHT} />
         <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
         <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
-        <UnitStatus healthData={health} />
-        <CombatRange combatRangeData={combatRange} />
-        <MovementRange movementRangeData={movementRange} />
-        <ViewDistance viewDistanceData={viewDistance} />
+        <UnitStatus
+          healthData={health}
+          combatRange={combatRange}
+          viewDistance={viewDistance}
+          movementRange={movementRange}
+        />
       </g>
     </svg>
   );
