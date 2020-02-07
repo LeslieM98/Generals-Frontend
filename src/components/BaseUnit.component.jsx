@@ -5,7 +5,7 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
-const CombatRange = ({ combatRangeData, cx, cy }) => {
+const CombatRange = ({ combatRangeData, position }) => {
   console.log("battleRangeData:", combatRangeData);
   const CIRCLE_SCALE = 10;
 
@@ -16,16 +16,16 @@ const CombatRange = ({ combatRangeData, cx, cy }) => {
     <g name="CombatRange">
       <circle
         name="close"
-        cx={cx}
-        cy={cy}
+        cx={UNIT_WIDTH / 2}
+        cy={UNIT_HEIGHT / 2}
         r={CLOSE}
         fillOpacity="10%"
         fill="red"
       />
       <circle
         name="ranged"
-        cx={cx}
-        cy={cy}
+        cx={UNIT_WIDTH / 2}
+        cy={UNIT_HEIGHT / 2}
         r={RANGED}
         fillOpacity="10%"
         fill="red"
@@ -54,7 +54,6 @@ const UnitStatus = ({ healthData }) => {
 const BaseUnit = ({ id }) => {
   const [health, setHealth] = useState(null);
   const [combatRange, setCombatRange] = useState(null);
-
   useEffect(() => update(), []);
 
   const update = () => {
