@@ -10,17 +10,15 @@ const UnitStatus = ({ healthData }) => {
   const HP = healthData && healthData.current / healthData.maximum;
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <g name="UnitStatus">
-        <rect width={UNIT_WIDTH} height={BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
-        <rect
-          width={UNIT_WIDTH * HP}
-          height={BAR_HEIGHT}
-          y={UNIT_HEIGHT}
-          fill="green"
-        />
-      </g>
-    </svg>
+    <g name="UnitStatus">
+      <rect width={UNIT_WIDTH} height={BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
+      <rect
+        width={UNIT_WIDTH * HP}
+        height={BAR_HEIGHT}
+        y={UNIT_HEIGHT}
+        fill="green"
+      />
+    </g>
   );
 };
 
