@@ -5,6 +5,8 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
+const DISTANCE_OPACITY = "10%";
+
 const ViewDistance = ({ viewDistanceData }) => {
   console.log("movementRangeData:", viewDistanceData);
   const CIRCLE_SCALE = 10;
@@ -23,7 +25,7 @@ const ViewDistance = ({ viewDistanceData }) => {
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={DISADVANTAGED}
-        fillOpacity="10%"
+        fillOpacity={DISTANCE_OPACITY}
         fill={COLOR}
       />
       <circle
@@ -31,7 +33,7 @@ const ViewDistance = ({ viewDistanceData }) => {
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={NORMAL}
-        fillOpacity="10%"
+        fillOpacity={DISTANCE_OPACITY}
         fill={COLOR}
       />
       <circle
@@ -39,7 +41,7 @@ const ViewDistance = ({ viewDistanceData }) => {
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={ADVANTAGED}
-        fillOpacity="10%"
+        fillOpacity={DISTANCE_OPACITY}
         fill={COLOR}
       />
     </g>
@@ -63,7 +65,7 @@ const MovementRange = ({ movementRangeData }) => {
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={DIFFICULT_TERRAIN}
-        fillOpacity="10%"
+        fillOpacity={DISTANCE_OPACITY}
         fill={COLOR}
       />
       <circle
@@ -71,7 +73,7 @@ const MovementRange = ({ movementRangeData }) => {
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={NORMAL}
-        fillOpacity="10%"
+        fillOpacity={DISTANCE_OPACITY}
         fill={COLOR}
       />
       <circle
@@ -79,7 +81,7 @@ const MovementRange = ({ movementRangeData }) => {
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={STREET}
-        fillOpacity="10%"
+        fillOpacity={DISTANCE_OPACITY}
         fill={COLOR}
       />
     </g>
@@ -100,7 +102,7 @@ const CombatRange = ({ combatRangeData }) => {
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={CLOSE}
-        fillOpacity="10%"
+        fillOpacity={DISTANCE_OPACITY}
         fill="red"
       />
       <circle
@@ -108,7 +110,7 @@ const CombatRange = ({ combatRangeData }) => {
         cx={UNIT_WIDTH / 2}
         cy={UNIT_HEIGHT / 2}
         r={RANGED}
-        fillOpacity="10%"
+        fillOpacity={DISTANCE_OPACITY}
         fill="red"
       />
     </g>
