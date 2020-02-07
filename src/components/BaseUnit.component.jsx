@@ -134,34 +134,42 @@ const HealthBar = ({ healthData }) => {
   );
 };
 
-const UnitStatus = ({ healthData }) => {
+const RangeController = ({ name, color, position }) => {
   const RANGE_CONTROLLER_WIDTH = UNIT_WIDTH / 3;
   const RANGE_CONTROLLER_HEIGHT = BAR_HEIGHT;
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
   return (
+    <rect
+      name={name}
+      x={RANGE_CONTROLLER_WIDTH * position}
+      y={RANGE_CONTROLLER_Y_OFFSET}
+      width={UNIT_WIDTH / 3}
+      height={RANGE_CONTROLLER_HEIGHT}
+      fill={color}
+    />
+  );
+};
+
+const UnitStatus = ({ healthData }) => {
+  return (
     <g name="UnitStatus">
       <HealthBar healthData={healthData} />
       <g name="RangeController">
-        <rect
-          x={RANGE_CONTROLLER_WIDTH * 0}
-          y={RANGE_CONTROLLER_Y_OFFSET}
-          width={UNIT_WIDTH / 3}
-          height={RANGE_CONTROLLER_HEIGHT}
-          fill="red"
+        <RangeController
+          name="AttackRangeController"
+          color="red"
+          position="0"
         />
-        <rect
-          x={RANGE_CONTROLLER_WIDTH * 1}
-          y={RANGE_CONTROLLER_Y_OFFSET}
-          width={UNIT_WIDTH / 3}
-          height={RANGE_CONTROLLER_HEIGHT}
-          fill="yellow"
+        <RangeController
+          name="ViewRangeController"
+          color="yellow"
+          position="1"
         />
-        <rect
-          x={RANGE_CONTROLLER_WIDTH * 2}
-          y={RANGE_CONTROLLER_Y_OFFSET}
-          width={UNIT_WIDTH / 3}
-          height={RANGE_CONTROLLER_HEIGHT}
-          fill="green"
+
+        <RangeController
+          name="ViewRangeController"
+          color="green"
+          position="2"
         />
       </g>
     </g>
