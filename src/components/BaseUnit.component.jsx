@@ -117,12 +117,12 @@ const CombatRange = ({ combatRangeData }) => {
   );
 };
 
-const UnitStatus = ({ healthData }) => {
+const HealthBar = ({ healthData }) => {
   console.log("healthData:", healthData);
   const HP = healthData && healthData.current / healthData.maximum;
 
   return (
-    <g name="UnitStatus">
+    <g name="HealthBar">
       <rect width={UNIT_WIDTH} height={BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
       <rect
         width={UNIT_WIDTH * HP}
@@ -130,6 +130,40 @@ const UnitStatus = ({ healthData }) => {
         y={UNIT_HEIGHT}
         fill="green"
       />
+    </g>
+  );
+};
+
+const UnitStatus = ({ healthData }) => {
+  const RANGE_CONTROLLER_WIDTH = UNIT_WIDTH / 3;
+  const RANGE_CONTROLLER_HEIGHT = BAR_HEIGHT;
+  const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
+  return (
+    <g name="UnitStatus">
+      <HealthBar healthData={healthData} />
+      <g name="RangeController">
+        <rect
+          x={RANGE_CONTROLLER_WIDTH * 0}
+          y={RANGE_CONTROLLER_Y_OFFSET}
+          width={UNIT_WIDTH / 3}
+          height={RANGE_CONTROLLER_HEIGHT}
+          fill="red"
+        />
+        <rect
+          x={RANGE_CONTROLLER_WIDTH * 1}
+          y={RANGE_CONTROLLER_Y_OFFSET}
+          width={UNIT_WIDTH / 3}
+          height={RANGE_CONTROLLER_HEIGHT}
+          fill="yellow"
+        />
+        <rect
+          x={RANGE_CONTROLLER_WIDTH * 2}
+          y={RANGE_CONTROLLER_Y_OFFSET}
+          width={UNIT_WIDTH / 3}
+          height={RANGE_CONTROLLER_HEIGHT}
+          fill="green"
+        />
+      </g>
     </g>
   );
 };
