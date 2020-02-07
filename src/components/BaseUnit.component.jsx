@@ -25,14 +25,14 @@ const UnitStatus = ({ healthData }) => {
 };
 
 const BaseUnit = ({ id }) => {
-  const [health, setHealth] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => pullHealthData(), []);
 
   const pullHealthData = () => {
     fetch(`http://localhost:8080/troop/get?id=${id}`)
       .then(x => x.json())
-      .then(x => setHealth(x.health));
+      .then(x => setData(x));
   };
 
   return (
@@ -41,7 +41,7 @@ const BaseUnit = ({ id }) => {
         <rect width={UNIT_WIDTH} height={UNIT_HEIGHT} />
         <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
         <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
-        <UnitStatus healthData={health} />
+        <UnitStatus healthData={data && data.health} />
       </g>
     </svg>
   );
