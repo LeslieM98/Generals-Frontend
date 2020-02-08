@@ -5,130 +5,33 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
-const DISTANCE_OPACITY = "10%";
-
-const ViewDistance = ({ viewDistanceData, enabled }) => {
-  console.log("movementRangeData:", viewDistanceData);
-  const CIRCLE_SCALE = 10;
-
-  const COLOR = "yellow";
-
-  const DISADVANTAGED =
-    viewDistanceData && viewDistanceData.disadvantaged * CIRCLE_SCALE;
-  const NORMAL = viewDistanceData && viewDistanceData.normal * CIRCLE_SCALE;
-  const ADVANTAGED =
-    viewDistanceData && viewDistanceData.advantaged * CIRCLE_SCALE;
-
-  if (enabled) {
-    return (
-      <g name="ViewDistance">
-        <circle
-          name="disadvantaged"
-          cx={UNIT_WIDTH / 2}
-          cy={UNIT_HEIGHT / 2}
-          r={DISADVANTAGED}
-          fillOpacity={DISTANCE_OPACITY}
-          fill={COLOR}
-        />
-        <circle
-          name="normal"
-          cx={UNIT_WIDTH / 2}
-          cy={UNIT_HEIGHT / 2}
-          r={NORMAL}
-          fillOpacity={DISTANCE_OPACITY}
-          fill={COLOR}
-        />
-        <circle
-          name="advantaged"
-          cx={UNIT_WIDTH / 2}
-          cy={UNIT_HEIGHT / 2}
-          r={ADVANTAGED}
-          fillOpacity={DISTANCE_OPACITY}
-          fill={COLOR}
-        />
-      </g>
-    );
-  } else {
-    return <g name="ViewDistance"></g>;
+const RangeView = ({ color, name, data, enabled }) => {
+  const values = [];
+  for (let x in data) {
+    values.push(data[x]);
   }
-};
+  console.log("RangeView data:", data);
+  console.log("RangeView values:", values);
 
-const MovementRange = ({ movementRangeData, enabled }) => {
-  console.log("movementRangeData:", movementRangeData);
-  const CIRCLE_SCALE = 10;
-
-  const COLOR = "green";
-
-  const DIFFICULT_TERRAIN =
-    movementRangeData && movementRangeData.difficultTerrain * CIRCLE_SCALE;
-  const NORMAL = movementRangeData && movementRangeData.normal * CIRCLE_SCALE;
-  const STREET = movementRangeData && movementRangeData.street * CIRCLE_SCALE;
-
-  if (enabled) {
-    return (
-      <g name="MovementRange">
-        <circle
-          name="difficusltTerrain"
-          cx={UNIT_WIDTH / 2}
-          cy={UNIT_HEIGHT / 2}
-          r={DIFFICULT_TERRAIN}
-          fillOpacity={DISTANCE_OPACITY}
-          fill={COLOR}
-        />
-        <circle
-          name="normal"
-          cx={UNIT_WIDTH / 2}
-          cy={UNIT_HEIGHT / 2}
-          r={NORMAL}
-          fillOpacity={DISTANCE_OPACITY}
-          fill={COLOR}
-        />
-        <circle
-          name="street"
-          cx={UNIT_WIDTH / 2}
-          cy={UNIT_HEIGHT / 2}
-          r={STREET}
-          fillOpacity={DISTANCE_OPACITY}
-          fill={COLOR}
-        />
-      </g>
-    );
-  } else {
-    return <g name="MovementRange"></g>;
-  }
-};
-
-const CombatRange = ({ combatRangeData, enabled }) => {
-  console.log("battleRangeData:", combatRangeData);
-  const CIRCLE_SCALE = 10;
-
-  const CLOSE = combatRangeData && combatRangeData.close * CIRCLE_SCALE;
-  const RANGED = combatRangeData && combatRangeData.ranged * CIRCLE_SCALE;
-
-  if (enabled) {
-    return (
-      <g name="CombatRange">
-        <circle
-          name="close"
-          cx={UNIT_WIDTH / 2}
-          cy={UNIT_HEIGHT / 2}
-          r={CLOSE}
-          fillOpacity={DISTANCE_OPACITY}
-          fill="red"
-        />
-        <circle
-          name="ranged"
-          cx={UNIT_WIDTH / 2}
-          cy={UNIT_HEIGHT / 2}
-          r={RANGED}
-          fillOpacity={DISTANCE_OPACITY}
-          fill="red"
-        />
-      </g>
-    );
-  } else {
-    return <g name="CombatRange"></g>;
-  }
+  return (
+    <g name={name}>
+      {enabled
+        ? values
+            .sort()
+            .map(x => x * 10)
+            .map(v => (
+              <circle
+                name="disadvantaged"
+                cx={UNIT_WIDTH / 2}
+                cy={UNIT_HEIGHT / 2}
+                r={v}
+                fillOpacity={"10%"}
+                fill={color}
+              />
+            ))
+        : ""}{" "}
+    </g>
+  );
 };
 
 const HealthBar = ({ healthData }) => {
@@ -205,16 +108,22 @@ const UnitStatus = ({
         />
       </g>
       <g name="Ranges">
-        <CombatRange
-          combatRangeData={combatRange}
+        <RangeView
+          name="CombatRange"
+          data={combatRange}
+          color="red"
           enabled={combatRangeEnabled}
         />
-        <MovementRange
-          movementRangeData={movementRange}
+        <RangeView
+          name="MovementRange"
+          data={movementRange}
+          color="green"
           enabled={movementRangeEnabled}
         />
-        <ViewDistance
-          viewDistanceData={viewDistance}
+        <RangeView
+          name="ViewDistance"
+          data={viewDistance}
+          color="yellow"
           enabled={viewDistanceEnabled}
         />
       </g>
