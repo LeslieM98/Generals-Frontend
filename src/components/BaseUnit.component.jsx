@@ -34,9 +34,9 @@ const RangeView = ({ color, name, data, enabled }) => {
   );
 };
 
-const HealthBar = ({ healthData }) => {
-  console.log("healthData:", healthData);
-  const HP = healthData && healthData.current / healthData.maximum;
+const HealthBar = ({ data }) => {
+  console.log("healthData:", data);
+  const HP = data && data.current / data.maximum;
 
   return (
     <g name="HealthBar">
@@ -70,9 +70,9 @@ const RangeController = ({ name, color, position, onClick }) => {
 
 const UnitStatus = ({
   healthData,
-  combatRange,
-  movementRange,
-  viewDistance
+  combatRangeData,
+  movementRangeData,
+  viewDistanceData
 }) => {
   const [viewDistanceEnabled, setViewDistanceEnabled] = useState(false);
   const [combatRangeEnabled, setCombatRangeEnabled] = useState(false);
@@ -85,7 +85,7 @@ const UnitStatus = ({
 
   return (
     <g name="UnitStatus">
-      <HealthBar healthData={healthData} />
+      <HealthBar data={healthData} />
       <g name="RangeControllers">
         <RangeController
           name="CombatRangeController"
@@ -110,19 +110,19 @@ const UnitStatus = ({
       <g name="Ranges">
         <RangeView
           name="CombatRange"
-          data={combatRange}
+          data={combatRangeData}
           color="red"
           enabled={combatRangeEnabled}
         />
         <RangeView
           name="MovementRange"
-          data={movementRange}
+          data={movementRangeData}
           color="green"
           enabled={movementRangeEnabled}
         />
         <RangeView
           name="ViewDistance"
-          data={viewDistance}
+          data={viewDistanceData}
           color="yellow"
           enabled={viewDistanceEnabled}
         />
@@ -132,11 +132,11 @@ const UnitStatus = ({
 };
 
 const BaseUnit = ({ id }) => {
-  const [health, setHealth] = useState(null);
-  const [combatRange, setCombatRange] = useState(null);
-  const [position, setPosition] = useState(null);
-  const [movementRange, setMovementRange] = useState(null);
-  const [viewDistance, setViewDistance] = useState(null);
+  const [healthData, setHealthData] = useState(null);
+  const [combatRangeData, setCombatRangeData] = useState(null);
+  const [positionData, setPositionData] = useState(null);
+  const [movementRangeData, setMovementRangeData] = useState(null);
+  const [viewDistanceData, setViewDistanceData] = useState(null);
 
   useEffect(() => update(), []);
 
@@ -144,17 +144,18 @@ const BaseUnit = ({ id }) => {
     fetch(`http://localhost:8080/troop/get?id=${id}`)
       .then(x => x.json())
       .then(x => {
-        setHealth(x.health);
-        setCombatRange(x.combatRange);
-        setPosition(x.position);
-        setMovementRange(x.movementSpeed);
-        setViewDistance(x.viewDistance);
+        setHealthData(x.health);
+        setCombatRangeData(x.combatRange);
+        setPositionData(x.position);
+        setMovementRangeData(x.movementSpeed);
+        setViewDistanceData(x.viewDistance);
       });
   };
 
   const TRANSLATE =
-    position &&
-    `translate(${position.x - UNIT_WIDTH / 2} ${position.y - UNIT_HEIGHT / 2})`;
+    positionData &&
+    `translate(${positionData.x - UNIT_WIDTH / 2} ${positionData.y -
+      UNIT_HEIGHT / 2})`;
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg">
@@ -169,10 +170,10 @@ const BaseUnit = ({ id }) => {
         <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
         <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
         <UnitStatus
-          healthData={health}
-          combatRange={combatRange}
-          viewDistance={viewDistance}
-          movementRange={movementRange}
+          healthData={healthData}
+          combatRangeData={combatRangeData}
+          viewDistanceData={viewDistanceData}
+          movementRangeData={movementRangeData}
         />
       </g>
     </svg>
