@@ -6,12 +6,11 @@ const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
 const RangeView = ({ color, name, data, enabled }) => {
+  console.log("Rendering", "RangeView", name, data);
   const values = [];
   for (let x in data) {
     values.push(data[x]);
   }
-  console.log("RangeView data:", data);
-  console.log("RangeView values:", values);
 
   return (
     <g name={name}>
@@ -35,7 +34,7 @@ const RangeView = ({ color, name, data, enabled }) => {
 };
 
 const HealthBar = ({ data }) => {
-  console.log("healthData:", data);
+  console.log("Rendering", "HealthBar", data);
   const HP = data && data.current / data.maximum;
 
   return (
@@ -52,6 +51,7 @@ const HealthBar = ({ data }) => {
 };
 
 const RangeController = ({ name, color, position, onClick }) => {
+  console.log("Rendering", "RangeController", name);
   const RANGE_CONTROLLER_WIDTH = UNIT_WIDTH / 3;
   const RANGE_CONTROLLER_HEIGHT = BAR_HEIGHT;
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
@@ -74,6 +74,14 @@ const UnitStatus = ({
   movementRangeData,
   viewDistanceData
 }) => {
+  console.log(
+    "Rendering",
+    "UnitStatus",
+    healthData,
+    combatRangeData,
+    movementRangeData,
+    viewDistanceData
+  );
   const [viewDistanceEnabled, setViewDistanceEnabled] = useState(false);
   const [combatRangeEnabled, setCombatRangeEnabled] = useState(false);
   const [movementRangeEnabled, setMovementRangeEnabled] = useState(false);
@@ -132,6 +140,7 @@ const UnitStatus = ({
 };
 
 const BaseUnit = ({ id }) => {
+  console.log("Rendering", "UnitStatus", id);
   const [healthData, setHealthData] = useState(null);
   const [combatRangeData, setCombatRangeData] = useState(null);
   const [positionData, setPositionData] = useState(null);
