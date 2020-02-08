@@ -179,6 +179,7 @@ const BaseUnit = ({ id }) => {
   const [movementRangeData, setMovementRangeData] = useState(null);
   const [viewDistanceData, setViewDistanceData] = useState(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => update(), []);
 
   const update = () => {
