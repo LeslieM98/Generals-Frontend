@@ -5,7 +5,7 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
-const RangeView = ({ color, name, data, enabled }) => {
+const RangeCircleView = ({ color, name, data, enabled }) => {
   console.log("Rendering", "RangeView", name, data);
   const values = [];
   for (let x in data) {
@@ -116,19 +116,19 @@ const UnitStatus = ({
         />
       </g>
       <g name="Ranges">
-        <RangeView
+        <RangeCircleView
           name="CombatRange"
           data={combatRangeData}
           color="red"
           enabled={combatRangeEnabled}
         />
-        <RangeView
+        <RangeCircleView
           name="MovementRange"
           data={movementRangeData}
           color="green"
           enabled={movementRangeEnabled}
         />
-        <RangeView
+        <RangeCircleView
           name="ViewDistance"
           data={viewDistanceData}
           color="yellow"
