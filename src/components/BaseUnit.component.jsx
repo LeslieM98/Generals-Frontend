@@ -50,8 +50,8 @@ const HealthBar = ({ data }) => {
   );
 };
 
-const RangeController = ({ name, color, position, onClick }) => {
-  console.log("Rendering", "RangeController", name);
+const RangeControllerView = ({ name, color, position }) => {
+  console.log("Rendering", "RangeControllerView", name);
   const RANGE_CONTROLLER_WIDTH = UNIT_WIDTH / 3;
   const RANGE_CONTROLLER_HEIGHT = BAR_HEIGHT;
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
@@ -63,7 +63,24 @@ const RangeController = ({ name, color, position, onClick }) => {
       width={RANGE_CONTROLLER_WIDTH}
       height={RANGE_CONTROLLER_HEIGHT}
       fill={color}
+    />
+  );
+};
+
+const RangeController = ({ name, position, onClick }) => {
+  console.log("Rendering", "RangeController", name);
+  const RANGE_CONTROLLER_WIDTH = UNIT_WIDTH / 3;
+  const RANGE_CONTROLLER_HEIGHT = BAR_HEIGHT;
+  const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
+  return (
+    <rect
+      name={name}
+      x={RANGE_CONTROLLER_WIDTH * position}
+      y={RANGE_CONTROLLER_Y_OFFSET}
+      width={RANGE_CONTROLLER_WIDTH}
+      height={RANGE_CONTROLLER_HEIGHT}
       onClick={onClick}
+      opacity="0%"
     />
   );
 };
@@ -94,21 +111,20 @@ const UnitStatus = ({
   return (
     <g name="UnitStatus">
       <HealthBar data={healthData} />
-      <g name="RangeControllers">
-        <RangeController
+      <g name="RangeControllerViews">
+        <RangeControllerView
           name="CombatRangeController"
           color="red"
           position="0"
           onClick={toggleCombatRange}
         />
-        <RangeController
+        <RangeControllerView
           name="ViewDistanceController"
           color="yellow"
           position="1"
           onClick={toggleViewDistance}
         />
-
-        <RangeController
+        <RangeControllerView
           name="MovementRangeController"
           color="green"
           position="2"
@@ -133,6 +149,23 @@ const UnitStatus = ({
           data={viewDistanceData}
           color="yellow"
           enabled={viewDistanceEnabled}
+        />
+      </g>
+      <g name="RangeControllers">
+        <RangeController
+          name="CombatRangeController"
+          position="0"
+          onClick={toggleCombatRange}
+        />
+        <RangeController
+          name="ViewDistanceController"
+          position="1"
+          onClick={toggleViewDistance}
+        />
+        <RangeController
+          name="MovementRangeController"
+          position="2"
+          onClick={toggleMovementRange}
         />
       </g>
     </g>
