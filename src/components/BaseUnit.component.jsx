@@ -200,25 +200,23 @@ const BaseUnit = ({ id }) => {
       UNIT_HEIGHT / 2})`;
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <g
-        name="BaseUnit"
-        stroke="black"
-        fill="white"
-        strokeWidth="1pt"
-        transform={TRANSLATE}
-      >
-        <rect x={0} y={0} width={UNIT_WIDTH} height={UNIT_HEIGHT} />
-        <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
-        <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
-        <UnitStatus
-          healthData={healthData}
-          combatRangeData={combatRangeData}
-          viewDistanceData={viewDistanceData}
-          movementRangeData={movementRangeData}
-        />
-      </g>
-    </svg>
+    <g
+      name="BaseUnit"
+      stroke="black"
+      fill="white"
+      strokeWidth="1pt"
+      transform={TRANSLATE}
+    >
+      <rect x={0} y={0} width={UNIT_WIDTH} height={UNIT_HEIGHT} />
+      <line x1="0" y1="0" x2={UNIT_WIDTH} y2={UNIT_HEIGHT} />
+      <line x1="0" y1={UNIT_HEIGHT} x2={UNIT_WIDTH} y2="0" />
+      <UnitStatus
+        healthData={healthData}
+        combatRangeData={combatRangeData}
+        viewDistanceData={viewDistanceData}
+        movementRangeData={movementRangeData}
+      />
+    </g>
   );
 };
 
