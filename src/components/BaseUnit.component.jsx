@@ -7,7 +7,7 @@ const BAR_HEIGHT = 10;
 
 const DISTANCE_OPACITY = "10%";
 
-const ViewDistance = ({ viewDistanceData }) => {
+const ViewDistance = ({ viewDistanceData, enabled }) => {
   console.log("movementRangeData:", viewDistanceData);
   const CIRCLE_SCALE = 10;
 
@@ -18,37 +18,42 @@ const ViewDistance = ({ viewDistanceData }) => {
   const NORMAL = viewDistanceData && viewDistanceData.normal * CIRCLE_SCALE;
   const ADVANTAGED =
     viewDistanceData && viewDistanceData.advantaged * CIRCLE_SCALE;
-  return (
-    <g name="MovementRange">
-      <circle
-        name="disadvantaged"
-        cx={UNIT_WIDTH / 2}
-        cy={UNIT_HEIGHT / 2}
-        r={DISADVANTAGED}
-        fillOpacity={DISTANCE_OPACITY}
-        fill={COLOR}
-      />
-      <circle
-        name="normal"
-        cx={UNIT_WIDTH / 2}
-        cy={UNIT_HEIGHT / 2}
-        r={NORMAL}
-        fillOpacity={DISTANCE_OPACITY}
-        fill={COLOR}
-      />
-      <circle
-        name="advantaged"
-        cx={UNIT_WIDTH / 2}
-        cy={UNIT_HEIGHT / 2}
-        r={ADVANTAGED}
-        fillOpacity={DISTANCE_OPACITY}
-        fill={COLOR}
-      />
-    </g>
-  );
+
+  if (enabled) {
+    return (
+      <g name="ViewDistance">
+        <circle
+          name="disadvantaged"
+          cx={UNIT_WIDTH / 2}
+          cy={UNIT_HEIGHT / 2}
+          r={DISADVANTAGED}
+          fillOpacity={DISTANCE_OPACITY}
+          fill={COLOR}
+        />
+        <circle
+          name="normal"
+          cx={UNIT_WIDTH / 2}
+          cy={UNIT_HEIGHT / 2}
+          r={NORMAL}
+          fillOpacity={DISTANCE_OPACITY}
+          fill={COLOR}
+        />
+        <circle
+          name="advantaged"
+          cx={UNIT_WIDTH / 2}
+          cy={UNIT_HEIGHT / 2}
+          r={ADVANTAGED}
+          fillOpacity={DISTANCE_OPACITY}
+          fill={COLOR}
+        />
+      </g>
+    );
+  } else {
+    return <g name="ViewDistance"></g>;
+  }
 };
 
-const MovementRange = ({ movementRangeData }) => {
+const MovementRange = ({ movementRangeData, enabled }) => {
   console.log("movementRangeData:", movementRangeData);
   const CIRCLE_SCALE = 10;
 
@@ -58,63 +63,72 @@ const MovementRange = ({ movementRangeData }) => {
     movementRangeData && movementRangeData.difficultTerrain * CIRCLE_SCALE;
   const NORMAL = movementRangeData && movementRangeData.normal * CIRCLE_SCALE;
   const STREET = movementRangeData && movementRangeData.street * CIRCLE_SCALE;
-  return (
-    <g name="MovementRange">
-      <circle
-        name="difficusltTerrain"
-        cx={UNIT_WIDTH / 2}
-        cy={UNIT_HEIGHT / 2}
-        r={DIFFICULT_TERRAIN}
-        fillOpacity={DISTANCE_OPACITY}
-        fill={COLOR}
-      />
-      <circle
-        name="normal"
-        cx={UNIT_WIDTH / 2}
-        cy={UNIT_HEIGHT / 2}
-        r={NORMAL}
-        fillOpacity={DISTANCE_OPACITY}
-        fill={COLOR}
-      />
-      <circle
-        name="street"
-        cx={UNIT_WIDTH / 2}
-        cy={UNIT_HEIGHT / 2}
-        r={STREET}
-        fillOpacity={DISTANCE_OPACITY}
-        fill={COLOR}
-      />
-    </g>
-  );
+
+  if (enabled) {
+    return (
+      <g name="MovementRange">
+        <circle
+          name="difficusltTerrain"
+          cx={UNIT_WIDTH / 2}
+          cy={UNIT_HEIGHT / 2}
+          r={DIFFICULT_TERRAIN}
+          fillOpacity={DISTANCE_OPACITY}
+          fill={COLOR}
+        />
+        <circle
+          name="normal"
+          cx={UNIT_WIDTH / 2}
+          cy={UNIT_HEIGHT / 2}
+          r={NORMAL}
+          fillOpacity={DISTANCE_OPACITY}
+          fill={COLOR}
+        />
+        <circle
+          name="street"
+          cx={UNIT_WIDTH / 2}
+          cy={UNIT_HEIGHT / 2}
+          r={STREET}
+          fillOpacity={DISTANCE_OPACITY}
+          fill={COLOR}
+        />
+      </g>
+    );
+  } else {
+    return <g name="MovementRange"></g>;
+  }
 };
 
-const CombatRange = ({ combatRangeData }) => {
+const CombatRange = ({ combatRangeData, enabled }) => {
   console.log("battleRangeData:", combatRangeData);
   const CIRCLE_SCALE = 10;
 
   const CLOSE = combatRangeData && combatRangeData.close * CIRCLE_SCALE;
   const RANGED = combatRangeData && combatRangeData.ranged * CIRCLE_SCALE;
 
-  return (
-    <g name="CombatRange">
-      <circle
-        name="close"
-        cx={UNIT_WIDTH / 2}
-        cy={UNIT_HEIGHT / 2}
-        r={CLOSE}
-        fillOpacity={DISTANCE_OPACITY}
-        fill="red"
-      />
-      <circle
-        name="ranged"
-        cx={UNIT_WIDTH / 2}
-        cy={UNIT_HEIGHT / 2}
-        r={RANGED}
-        fillOpacity={DISTANCE_OPACITY}
-        fill="red"
-      />
-    </g>
-  );
+  if (enabled) {
+    return (
+      <g name="CombatRange">
+        <circle
+          name="close"
+          cx={UNIT_WIDTH / 2}
+          cy={UNIT_HEIGHT / 2}
+          r={CLOSE}
+          fillOpacity={DISTANCE_OPACITY}
+          fill="red"
+        />
+        <circle
+          name="ranged"
+          cx={UNIT_WIDTH / 2}
+          cy={UNIT_HEIGHT / 2}
+          r={RANGED}
+          fillOpacity={DISTANCE_OPACITY}
+          fill="red"
+        />
+      </g>
+    );
+  } else {
+    return <g name="CombatRange"></g>;
+  }
 };
 
 const HealthBar = ({ healthData }) => {
@@ -134,7 +148,7 @@ const HealthBar = ({ healthData }) => {
   );
 };
 
-const RangeController = ({ name, color, position }) => {
+const RangeController = ({ name, color, position, onClick }) => {
   const RANGE_CONTROLLER_WIDTH = UNIT_WIDTH / 3;
   const RANGE_CONTROLLER_HEIGHT = BAR_HEIGHT;
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
@@ -146,6 +160,7 @@ const RangeController = ({ name, color, position }) => {
       width={RANGE_CONTROLLER_WIDTH}
       height={RANGE_CONTROLLER_HEIGHT}
       fill={color}
+      onClick={onClick}
     />
   );
 };
@@ -157,34 +172,47 @@ const UnitStatus = ({
   viewDistance
 }) => {
   const [viewDistanceEnabled, setViewDistanceEnabled] = useState(false);
+  const [combatRangeEnabled, setCombatRangeEnabled] = useState(false);
+  const [movementRangeEnabled, setMovementRangeEnabled] = useState(false);
 
-  const toggleViewDistance = () => setViewDistanceEnabled(!viewDistance);
+  const toggleViewDistance = () => setViewDistanceEnabled(!viewDistanceEnabled);
+  const toggleCombatRange = () => setCombatRangeEnabled(!combatRangeEnabled);
+  const toggleMovementRange = () =>
+    setMovementRangeEnabled(!movementRangeEnabled);
 
   return (
     <g name="UnitStatus">
       <HealthBar healthData={healthData} />
       <g name="RangeControllers">
         <RangeController
-          name="AttackRangeController"
+          name="CombatRangeController"
           color="red"
           position="0"
+          onClick={toggleCombatRange}
         />
         <RangeController
-          name="ViewRangeController"
+          name="ViewDistanceController"
           color="yellow"
           position="1"
+          onClick={toggleViewDistance}
         />
 
         <RangeController
-          name="ViewRangeController"
+          name="MovementRangeController"
           color="green"
           position="2"
-          onClick={toggleViewDistance}
+          onClick={toggleMovementRange}
         />
       </g>
       <g name="Ranges">
-        <CombatRange combatRangeData={combatRange} />
-        <MovementRange movementRangeData={movementRange} />
+        <CombatRange
+          combatRangeData={combatRange}
+          enabled={combatRangeEnabled}
+        />
+        <MovementRange
+          movementRangeData={movementRange}
+          enabled={movementRangeEnabled}
+        />
         <ViewDistance
           viewDistanceData={viewDistance}
           enabled={viewDistanceEnabled}
