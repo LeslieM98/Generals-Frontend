@@ -20,7 +20,6 @@ const RangeCircleView = ({ color, name, data, enabled }) => {
             .map(x => x * 10)
             .map(v => (
               <circle
-                name="disadvantaged"
                 cx={UNIT_WIDTH / 2}
                 cy={UNIT_HEIGHT / 2}
                 r={v}
