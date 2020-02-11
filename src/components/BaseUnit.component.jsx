@@ -13,7 +13,7 @@ const RangeCircleView = ({ color, name, data, enabled }) => {
   }
 
   return (
-    <g name={name}>
+    <g class={name}>
       {enabled
         ? values
             .sort()
@@ -37,7 +37,7 @@ const HealthBar = ({ data }) => {
   const HP = data && data.current / data.maximum;
 
   return (
-    <g name="HealthBar">
+    <g class="HealthBar">
       <rect width={UNIT_WIDTH} height={BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
       <rect
         width={UNIT_WIDTH * HP}
@@ -56,7 +56,7 @@ const RangeControllerView = ({ name, color, position }) => {
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
   return (
     <rect
-      name={name}
+      class={name}
       x={RANGE_CONTROLLER_WIDTH * position}
       y={RANGE_CONTROLLER_Y_OFFSET}
       width={RANGE_CONTROLLER_WIDTH}
@@ -73,7 +73,7 @@ const RangeController = ({ name, position, onClick }) => {
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
   return (
     <rect
-      name={name}
+      class={name}
       x={RANGE_CONTROLLER_WIDTH * position}
       y={RANGE_CONTROLLER_Y_OFFSET}
       width={RANGE_CONTROLLER_WIDTH}
@@ -108,61 +108,61 @@ const UnitStatus = ({
     setMovementRangeEnabled(!movementRangeEnabled);
 
   return (
-    <g name="UnitStatus">
+    <g class="UnitStatus">
       <HealthBar data={healthData} />
-      <g name="RangeControllerViews">
+      <g class="RangeControllerViews">
         <RangeControllerView
-          name="CombatRangeController"
+          class="CombatRangeController"
           color="red"
           position="0"
           onClick={toggleCombatRange}
         />
         <RangeControllerView
-          name="ViewDistanceController"
+          class="ViewDistanceController"
           color="yellow"
           position="1"
           onClick={toggleViewDistance}
         />
         <RangeControllerView
-          name="MovementRangeController"
+          class="MovementRangeController"
           color="green"
           position="2"
           onClick={toggleMovementRange}
         />
       </g>
-      <g name="Ranges">
+      <g class="Ranges">
         <RangeCircleView
-          name="CombatRange"
+          class="CombatRange"
           data={combatRangeData}
           color="red"
           enabled={combatRangeEnabled}
         />
         <RangeCircleView
-          name="MovementRange"
+          class="MovementRange"
           data={movementRangeData}
           color="green"
           enabled={movementRangeEnabled}
         />
         <RangeCircleView
-          name="ViewDistance"
+          class="ViewDistance"
           data={viewDistanceData}
           color="yellow"
           enabled={viewDistanceEnabled}
         />
       </g>
-      <g name="RangeControllers">
+      <g class="RangeControllers">
         <RangeController
-          name="CombatRangeController"
+          class="CombatRangeController"
           position="0"
           onClick={toggleCombatRange}
         />
         <RangeController
-          name="ViewDistanceController"
+          class="ViewDistanceController"
           position="1"
           onClick={toggleViewDistance}
         />
         <RangeController
-          name="MovementRangeController"
+          class="MovementRangeController"
           position="2"
           onClick={toggleMovementRange}
         />
@@ -201,7 +201,7 @@ const BaseUnit = ({ id }) => {
 
   return (
     <g
-      name="BaseUnit"
+      class="BaseUnit"
       stroke="black"
       fill="white"
       strokeWidth="1pt"
