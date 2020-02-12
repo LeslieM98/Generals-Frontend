@@ -5,6 +5,10 @@ const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
 const BAR_HEIGHT = 10;
 
+const VIEW_CLASS = "BaseUnit_View";
+const RANGEVIEW_CLASS = "BaseUnit_Rangeview";
+const CONTROLLER_CLASS = "BaseUnit_Controller";
+
 const RangeCircleView = ({ color, name, data, enabled }) => {
   console.log("Rendering", "RangeView", name, data);
   const values = [];
@@ -13,7 +17,7 @@ const RangeCircleView = ({ color, name, data, enabled }) => {
   }
 
   return (
-    <g class={name}>
+    <g name={name} className="BaseUnit_Rangeview">
       {enabled
         ? values
             .sort()
@@ -37,7 +41,7 @@ const HealthBar = ({ data }) => {
   const HP = data && data.current / data.maximum;
 
   return (
-    <g class="HealthBar">
+    <g name="HealthBar" className={VIEW_CLASS}>
       <rect width={UNIT_WIDTH} height={BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
       <rect
         width={UNIT_WIDTH * HP}
@@ -56,7 +60,8 @@ const RangeControllerView = ({ name, color, position }) => {
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
   return (
     <rect
-      class={name}
+      name={name}
+      className={RANGEVIEW_CLASS}
       x={RANGE_CONTROLLER_WIDTH * position}
       y={RANGE_CONTROLLER_Y_OFFSET}
       width={RANGE_CONTROLLER_WIDTH}
@@ -73,7 +78,8 @@ const RangeController = ({ name, position, onClick }) => {
   const RANGE_CONTROLLER_Y_OFFSET = -RANGE_CONTROLLER_HEIGHT;
   return (
     <rect
-      class={name}
+      name={name}
+      className={CONTROLLER_CLASS}
       x={RANGE_CONTROLLER_WIDTH * position}
       y={RANGE_CONTROLLER_Y_OFFSET}
       width={RANGE_CONTROLLER_WIDTH}
@@ -108,61 +114,61 @@ const UnitStatus = ({
     setMovementRangeEnabled(!movementRangeEnabled);
 
   return (
-    <g class="UnitStatus">
+    <g name="UnitStatus" className={VIEW_CLASS}>
       <HealthBar data={healthData} />
-      <g class="RangeControllerViews">
+      <g name="RangeControllerViews">
         <RangeControllerView
-          class="CombatRangeController"
+          name="CombatRangeController"
           color="red"
           position="0"
           onClick={toggleCombatRange}
         />
         <RangeControllerView
-          class="ViewDistanceController"
+          name="ViewDistanceController"
           color="yellow"
           position="1"
           onClick={toggleViewDistance}
         />
         <RangeControllerView
-          class="MovementRangeController"
+          name="MovementRangeController"
           color="green"
           position="2"
           onClick={toggleMovementRange}
         />
       </g>
-      <g class="Ranges">
+      <g name="Ranges">
         <RangeCircleView
-          class="CombatRange"
+          name="CombatRange"
           data={combatRangeData}
           color="red"
           enabled={combatRangeEnabled}
         />
         <RangeCircleView
-          class="MovementRange"
+          name="MovementRange"
           data={movementRangeData}
           color="green"
           enabled={movementRangeEnabled}
         />
         <RangeCircleView
-          class="ViewDistance"
+          name="ViewDistance"
           data={viewDistanceData}
           color="yellow"
           enabled={viewDistanceEnabled}
         />
       </g>
-      <g class="RangeControllers">
+      <g name="RangeControllers">
         <RangeController
-          class="CombatRangeController"
+          name="CombatRangeController"
           position="0"
           onClick={toggleCombatRange}
         />
         <RangeController
-          class="ViewDistanceController"
+          name="ViewDistanceController"
           position="1"
           onClick={toggleViewDistance}
         />
         <RangeController
-          class="MovementRangeController"
+          name="MovementRangeController"
           position="2"
           onClick={toggleMovementRange}
         />
@@ -201,7 +207,8 @@ const BaseUnit = ({ id }) => {
 
   return (
     <g
-      class="BaseUnit"
+      name="BaseUnit"
+      className={VIEW_CLASS}
       stroke="black"
       fill="white"
       strokeWidth="1pt"
