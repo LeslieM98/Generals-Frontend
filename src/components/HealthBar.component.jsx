@@ -2,7 +2,7 @@ import React from "react";
 import { UNIT_HEIGHT, UNIT_WIDTH, VIEW_CLASS } from "BaseUnit";
 
 
-const BAR_HEIGHT = 10;
+const HEALTH_BAR_HEIGHT = 10;
 
 
 
@@ -12,10 +12,10 @@ const HealthBar = ({ data }) => {
 
     return (
         <g name="HealthBar" className={VIEW_CLASS}>
-            <rect width={UNIT_WIDTH} height={BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
+            <rect width={UNIT_WIDTH} height={HEALTH_BAR_HEIGHT} y={UNIT_HEIGHT}></rect>
             <rect
                 width={UNIT_WIDTH * HP}
-                height={BAR_HEIGHT}
+                height={HEALTH_BAR_HEIGHT}
                 y={UNIT_HEIGHT}
                 fill="green"
             />
