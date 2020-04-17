@@ -1,5 +1,5 @@
 import React from "react";
-import BaseUnit from "./BaseUnit.component";
+import BaseUnit from "BaseUnit";
 import { useState, useEffect } from "react";
 
 const BattleMap = () => {
