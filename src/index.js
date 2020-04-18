@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import BattleMap from "./components/BattleMap.component";
+import BaseUnit from "./components/BaseUnit.component";
 import changeOrder from "./renderordermanipulator";
 
 const App = () => {
   return (
     <div>
-      <BattleMap />
+      <BaseUnit id="1" />
       Generals-Frontend WIP
     </div>
   );
