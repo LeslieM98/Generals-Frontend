@@ -1,14 +1,14 @@
 import React from "react";
-import { UNIT_HEIGHT, UNIT_WIDTH, VIEW_CLASS } from "BaseUnit";
+import { UNIT_HEIGHT, UNIT_WIDTH, VIEW_CLASS } from "./BaseUnit.component";
 
 
 const HEALTH_BAR_HEIGHT = 10;
 
 
 
-const HealthBar = ({ data }) => {
-    console.log("Rendering", "HealthBar", data);
-    const HP = data && data.current / data.maximum;
+const HealthBar = ({ unitData }) => {
+    console.log("Rendering", "HealthBar", unitData);
+    const HP = unitData && unitData.current / unitData.maximum;
 
     return (
         <g name="HealthBar" className={VIEW_CLASS}>

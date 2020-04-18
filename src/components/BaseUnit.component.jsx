@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import UnitStatus from "HealthBar"
+import UnitStatus from "./HealthBar.component";
 
 const UNIT_HEIGHT = 50;
 const UNIT_WIDTH = 100;
@@ -56,5 +56,5 @@ const BaseUnit = ({ id }) => {
     );
 };
 
-
-export default BaseUnit;
+export { UNIT_HEIGHT, UNIT_WIDTH, VIEW_CLASS }
+export default BaseUnit
